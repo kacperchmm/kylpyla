@@ -1,10 +1,7 @@
 package main;
 
 import java.lang.System;
-import java.util.Currency;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import Entity.Player;
 
