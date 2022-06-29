@@ -85,19 +85,25 @@ public class Player extends Entity
 			direction = "right";
             x += speed;
             counter();
-        }else if(Objects.equals(direction, "left"))
+        }else if(Objects.equals(direction, "left")||Objects.equals(direction, "standleft") )
+        {
         	direction = "standleft";
-        else if(Objects.equals(direction, "right"))
+        }
+       	else if(Objects.equals(direction, "right")||Objects.equals(direction, "standright"))
+        {
         	direction = "standright";
-        else 
-        	direction = "stand";
+        }
+       	else 
+       	{
+       		direction = "stand";
+       	}
 	}
 	public void draw(Graphics2D g2)
 	{
 		//g2.setColor(Color.white);
         //g2.fillRect(x, y, gp.tileSize, gp.tileSize);
 
-		BufferedImage image = stand;
+		BufferedImage image = standright;
 		switch(direction)
 		{
 		case "up":
