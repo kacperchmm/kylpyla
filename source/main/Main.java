@@ -11,7 +11,6 @@ public class Main{
         window.setResizable(false);
         window.setTitle("Kylpyla");
 
-
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
 
@@ -20,6 +19,7 @@ public class Main{
         window.setLocationRelativeTo(null); 
         window.setVisible(true);
 
+        gamePanel.setupGame();
         gamePanel.startGameThread();
     }
-}   
+}
