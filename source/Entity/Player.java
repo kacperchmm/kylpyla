@@ -18,7 +18,8 @@ public class Player extends Entity
 	
 	public final int screenX;
 	public final int screenY;
-	int hasKey = 0;
+	public int hasKey = 0;
+	int soundtime = 0;
 	
 	public Player(GamePanel gp, KeyHandler k) {
 		this.gp = gp;
@@ -174,11 +175,12 @@ public class Player extends Entity
 				hasKey++;
 				gp.obj[i] = null;
 				gp.playSoundEffect(3);
-				System.out.println("Key:" + hasKey);
+				gp.ui.showMessage("zebrano klucz!");
 				break;
 			case"door":
 				if(hasKey > 0) {
-						gp.playSoundEffect(4);
+					gp.ui.showMessage("otworzyłeś drzwi!");
+					gp.playSoundEffect(4);
 					int x = gp.obj[i].worldX;
 					int y = gp.obj[i].worldY;
 					gp.obj[i] = new OBJ_door_open(); //gp.obj[i+1];
@@ -188,15 +190,32 @@ public class Player extends Entity
 					System.out.println("Key:" + hasKey);
 				}else
 				{
+					gp.ui.showMessage("znajdź klucz!");
+					if(soundtime == 0)
+					{
+						gp.playSoundEffect(5);
+						soundtime++;
+					}else if(soundtime > 20)
+					{
+						soundtime = 0;
+					}else
+					{
+						soundtime++;
+					}
 					
 				}
 				break;
 			case"boots":
+				gp.ui.showMessage("zebrałeś buty!");
 				gp.playSoundEffect(2);
 				speed += 1;
 				gp.obj[i] = null;
 				getPlayerBoots();
 				break;
+			case"chest":
+			gp.ui.gameFinished = true;
+			gp.stopMusic();
+			gp.playSoundEffect(1);
 			}
 		}
 	}

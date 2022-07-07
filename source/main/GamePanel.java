@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
     public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
-    
+    public UI ui = new UI(this);
 
     public GamePanel(){
 
@@ -55,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
     	
     	aSetter.setObject();
     	
-    	playMusic(0);
+    	playMusic();
     }
     
     public void startGameThread(){
@@ -110,14 +110,15 @@ public class GamePanel extends JPanel implements Runnable{
         		obj[i].draw(g2, this);
         	}
         }
+        ui.draw(g2);
         
         player.draw(g2);
 
         g2.dispose();
     }
-    public void playMusic(int i)
+    public void playMusic()
     {
-    	sound.setFile(i);
+    	sound.setFile(0);
     	sound.play();
     	sound.loop();
     }
@@ -125,7 +126,7 @@ public class GamePanel extends JPanel implements Runnable{
     {
     	ef.setFile(0);
     }
-    public void stopMusic(int i)
+    public void stopMusic()
     {
     	sound.stop();
     }
