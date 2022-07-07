@@ -69,6 +69,34 @@ public class Player extends Entity
 		}
 	}
 	
+	public void getPlayerBoots()
+	{
+		try
+		{
+			up1 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_up_1.png"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_up_2.png"));
+			
+			down1 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_down_1.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_down_2.png"));
+			
+			left1 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_left_1.png"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_left_2.png"));
+
+			right1 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_right_1.png"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/player/player_b_right_2.png"));
+
+			stand = ImageIO.read(getClass().getResourceAsStream("/player/player_b_stand.png"));
+			standleft = ImageIO.read(getClass().getResourceAsStream("/player/player_b_stand_left.png"));
+			standright = ImageIO.read(getClass().getResourceAsStream("/player/player_b_stand_right.png"));
+
+
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	
 	public void counter() {
 		
 		spriteCounter++;
@@ -87,7 +115,6 @@ public class Player extends Entity
 	}
 	public void update() {
 		
-		int objIndex = gp.cChecker.checkObject(this, true);
 		
 		
 		if(keyH.upPressed){
@@ -118,7 +145,8 @@ public class Player extends Entity
        	}
 		collisionOn = false;
 		gp.cChecker.checkTile(this);
-		gp.cChecker.checkObject(this, true);
+		int objIndex = gp.cChecker.checkObject(this, true);
+		pickUpObject(objIndex);
 		if(collisionOn == false)
 		{
 			switch(direction)
@@ -141,15 +169,16 @@ public class Player extends Entity
 		if(i != 2137) {
 			
 			String objName = gp.obj[i].name;
-			
 			switch(objName) {
 			case"key":
 				hasKey++;
 				gp.obj[i] = null;
+				gp.playSoundEffect(3);
 				System.out.println("Key:" + hasKey);
 				break;
 			case"door":
 				if(hasKey > 0) {
+						gp.playSoundEffect(4);
 					int x = gp.obj[i].worldX;
 					int y = gp.obj[i].worldY;
 					gp.obj[i] = new OBJ_door_open(); //gp.obj[i+1];
@@ -157,7 +186,17 @@ public class Player extends Entity
 					gp.obj[i].worldY = y;
 					hasKey--;
 					System.out.println("Key:" + hasKey);
+				}else
+				{
+					
 				}
+				break;
+			case"boots":
+				gp.playSoundEffect(2);
+				speed += 1;
+				gp.obj[i] = null;
+				getPlayerBoots();
+				break;
 			}
 		}
 	}

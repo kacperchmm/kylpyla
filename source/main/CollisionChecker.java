@@ -84,7 +84,6 @@ public class CollisionChecker{
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
 						//System.out.println("gura");
 						if(gp.obj[i].collision) {
-							System.out.println("gura");
 							entity.collisionOn = true;
 						}
 						//entity.solidArea.y -= entity.speed;
