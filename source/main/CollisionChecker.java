@@ -82,9 +82,12 @@ public class CollisionChecker{
 				case "up":
 					entity.solidArea.y -= entity.speed;
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
+						//System.out.println("gura");
 						if(gp.obj[i].collision) {
+							System.out.println("gura");
 							entity.collisionOn = true;
 						}
+						//entity.solidArea.y -= entity.speed;
 						
 						if(player == true) { //sprawdzam czy gracz zeby npc nie podnosili itemow
 							index = i;
@@ -98,6 +101,7 @@ public class CollisionChecker{
 						if(gp.obj[i].collision) {
 							entity.collisionOn = true;
 						}
+						//entity.solidArea.y += entity.speed;
 						
 						if(player == true) { 
 							index = i;
@@ -109,9 +113,10 @@ public class CollisionChecker{
 					entity.solidArea.x -= entity.speed;
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
 						if(gp.obj[i].collision) {
+							
 							entity.collisionOn = true;
 						}
-						
+						//entity.solidArea.x -= entity.speed;
 						if(player == true) { 
 							index = i;
 						}
@@ -119,12 +124,12 @@ public class CollisionChecker{
 					break;
 					
 				case "right":
-					entity.solidArea.y += entity.speed;
+					entity.solidArea.x += entity.speed;
 					if(entity.solidArea.intersects(gp.obj[i].solidArea)) {
 						if(gp.obj[i].collision) {
 							entity.collisionOn = true;
 						}
-						
+						//entity.solidArea.x += entity.speed;
 						if(player == true) { 
 							index = i;
 						}

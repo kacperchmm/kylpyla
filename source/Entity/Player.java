@@ -2,6 +2,8 @@ package Entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_door_open;
+
 import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.IOException;
@@ -85,35 +87,24 @@ public class Player extends Entity
 	}
 	public void update() {
 		
+		int objIndex = gp.cChecker.checkObject(this, true);
+		
 		
 		if(keyH.upPressed){
 			direction = "up";
-			if(!setCollision()) {
-				worldY -= speed;
-			}
         }
 		
         else if(keyH.downPressed){
             direction = "down";
-            if(!setCollision()) {
-            	worldY += speed;
-            }
         }
 		
         else if(keyH.leftPressed){
             direction = "left";
-            if(!setCollision()) {
-            	worldX -= speed;
-            }
         }
 		
         else if(keyH.rightPressed){
 			direction = "right";
-			if(!setCollision()) {
-				worldX += speed;
-			}
         }
-		
         else if(Objects.equals(direction, "left")||Objects.equals(direction, "standleft")){
         	direction = "standleft";
         }
@@ -125,10 +116,20 @@ public class Player extends Entity
        	else {
        		direction = "stand";
        	}
+		collisionOn = false;
+		gp.cChecker.checkTile(this);
+		gp.cChecker.checkObject(this, true);
+		if(collisionOn == false)
+		{
+			switch(direction)
+			{
+			case "up": worldY -= speed; break;
+			case "down": worldY += speed; break;
+			case "left": worldX -= speed; break;
+			case "right": worldX += speed; break;
+			}
+		}
 		
-		int objIndex = gp.cChecker.checkObject(this, true);
-		
-		pickUpObject(objIndex);
 		
 
 		
@@ -148,8 +149,12 @@ public class Player extends Entity
 				System.out.println("Key:" + hasKey);
 				break;
 			case"door":
-				if(hasKey > 0) { //tu mozna zrobic otwarte drzwi ale nie mam sily
-					gp.obj[i] = null;
+				if(hasKey > 0) {
+					int x = gp.obj[i].worldX;
+					int y = gp.obj[i].worldY;
+					gp.obj[i] = new OBJ_door_open(); //gp.obj[i+1];
+					gp.obj[i].worldX = x;
+					gp.obj[i].worldY = y;
 					hasKey--;
 					System.out.println("Key:" + hasKey);
 				}

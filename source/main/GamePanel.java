@@ -10,6 +10,10 @@ import object.SuperObject;
 public class GamePanel extends JPanel implements Runnable{
     
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8670548652711159680L;
 	final int originalTileSize = 16; // 16x16
     final int scale = 3;
 
